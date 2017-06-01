@@ -82,6 +82,6 @@ def strip_output_from_cell(cell):
         cell["execution_count"] = None
 
 for cell in json_in["cells"]:
-        strip_output_from_cell(cell)
+    strip_output_from_cell(cell)
 
 json.dump(json_in, sys.stdout, sort_keys=True, indent=1, separators=(",",": "))
