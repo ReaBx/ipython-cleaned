@@ -78,16 +78,10 @@ ipy_version = int(json_in["nbformat"])-1 # nbformat is 1 more than actual versio
 def strip_output_from_cell(cell):
     if "outputs" in cell:
         cell["outputs"] = []
-    if "prompt_number" in cell:
-        del cell["prompt_number"]
+    if "execution_count" in cell:
+        cell["execution_count"] = None
 
-
-if ipy_version == 2:
-    for sheet in json_in["worksheets"]:
-        for cell in sheet["cells"]:
-            strip_output_from_cell(cell)
-else:
-    for cell in json_in["cells"]:
-        strip_output_from_cell(cell)
+for cell in json_in["cells"]:
+    strip_output_from_cell(cell)
 
 json.dump(json_in, sys.stdout, sort_keys=True, indent=1, separators=(",",": "))
